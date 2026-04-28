@@ -1,0 +1,248 @@
+/* ─────────────────────────────────────────
+   ABOUT-ME PAGE — specific styles
+   Layout: 20vw left/right margins, 60vw content
+───────────────────────────────────────── */
+
+/* Override page-margin for this page */
+.am-hero,
+.am-bio-row,
+.am-experience {
+  padding-left: 20vw;
+  padding-right: 20vw;
+}
+
+/* Override nav padding to match the narrower 20vw content */
+.nav-container {
+  padding-left: 20vw;
+  padding-right: 20vw;
+}
+
+/* ── Nav active state ── */
+.nav-link--active {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+/* ── HERO ── */
+.am-hero {
+  padding-top: 104px;
+  padding-bottom: 0;
+}
+
+.am-label {
+  font-family: var(--font-body);
+  font-size: 20px;
+  font-weight: 400;
+  color: var(--black);
+  margin-bottom: 6px;
+}
+
+.am-h2 {
+  font-family: var(--font-serif);
+  font-size: 64px;
+  font-weight: 300;
+  line-height: 80px;
+  color: var(--black);
+  margin: 0;
+}
+
+/* ── BIO + PHOTO ── */
+.am-bio-row {
+  display: flex;
+  align-items: flex-start;
+  margin-top: 65px;
+  margin-bottom: 78px;
+}
+
+/* Left — photo (25%) */
+.am-photo-col {
+  flex: 0 0 25%;
+  width: 25%;
+  padding-right: 24px;
+}
+
+.am-photo {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Right — bio text (75%) with ~15% left indent */
+.am-text-col {
+  flex: 0 0 75%;
+  width: 75%;
+  padding-left: 15%;
+}
+
+.am-bio-text {
+  font-family: var(--font-body);
+  font-size: 17px;
+  font-weight: 500;
+  line-height: 28px;
+  letter-spacing: 0.4px;
+  color: var(--black);
+}
+
+.am-bio-text a {
+  color: var(--black);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.am-arrow {
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: 300;
+  color: var(--black);
+}
+
+/* ── DIVIDER ── */
+.am-divider {
+  height: 1px;
+  background: rgb(210, 209, 212);
+  margin-top: 65px;
+  margin-bottom: 65px;
+  margin-left: 20vw;
+  margin-right: 20vw;
+}
+
+/* ── EXPERIENCE ── */
+.am-experience {
+  padding-bottom: 100px;
+}
+
+/* "○ Experience" header */
+.am-exp-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 55px;
+}
+
+.am-exp-circle {
+  width: 12px;
+  height: 12px;
+  border: 1.8px solid rgb(131, 128, 140);
+  border-radius: 20px;
+  flex-shrink: 0;
+  background: transparent;
+}
+
+.am-exp-label {
+  font-family: var(--font-body);
+  font-size: 20px;
+  font-weight: 400;
+  color: var(--black);
+}
+
+/* Each experience row */
+.am-exp-row {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 63px;
+}
+
+.am-exp-row--last {
+  margin-bottom: 0;
+}
+
+/* Left col — company name */
+.am-exp-left {
+  flex: 0 0 50%;
+  width: 50%;
+  padding-right: 10px;
+}
+
+.am-exp-company {
+  font-family: var(--font-serif);
+  font-size: 40px;
+  font-weight: 300;
+  line-height: 1.1;
+  color: var(--black);
+}
+
+/* Right col — role / date / desc */
+.am-exp-right {
+  flex: 0 0 50%;
+  width: 50%;
+  padding-left: 10px;
+}
+
+.am-exp-role {
+  font-family: var(--font-body);
+  font-size: 22px;
+  font-weight: 400;
+  color: var(--black);
+  line-height: 1.3;
+}
+
+.am-exp-date {
+  font-family: var(--font-body);
+  font-size: 18px;
+  font-weight: 600;
+  color: rgb(170, 168, 177);
+  margin-top: 10px;
+}
+
+.am-exp-desc {
+  font-family: var(--font-body);
+  font-size: 18px;
+  font-weight: 400;
+  color: rgb(131, 128, 140);
+  line-height: 27px;
+  margin-top: 25px;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 991px) {
+  .am-hero,
+  .am-bio-row,
+  .am-divider,
+  .am-experience {
+    padding-left: 5vw;
+    padding-right: 5vw;
+  }
+
+  .am-h2 {
+    font-size: 44px;
+    line-height: 56px;
+  }
+
+  .am-bio-row {
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .am-photo-col,
+  .am-text-col {
+    flex: none;
+    width: 100%;
+  }
+
+  .am-text-col {
+    padding-left: 0;
+  }
+
+  .am-exp-row {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .am-exp-left,
+  .am-exp-right {
+    flex: none;
+    width: 100%;
+    padding: 0;
+  }
+}
+
+@media (max-width: 767px) {
+  .am-h2 {
+    font-size: 34px;
+    line-height: 44px;
+  }
+
+  .am-exp-company {
+    font-size: 28px;
+  }
+}

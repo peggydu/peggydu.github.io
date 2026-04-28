@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Map Radar Demo</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: #1a1a2e;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    }
+
+    h1 {
+      color: #e0e0e0;
+      font-size: 14px;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+      opacity: 0.6;
+    }
+
+    #map-container {
+      position: relative;
+      width: 600px;
+      height: 600px;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 24px 80px rgba(0, 0, 0, 0.6);
+      cursor: crosshair;
+    }
+
+    #map {
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Hide Leaflet attribution for cleaner demo */
+    .leaflet-control-attribution {
+      font-size: 9px;
+      opacity: 0.4;
+    }
+
+    /* Radar ripple container */
+    #radar-layer {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 1000;
+    }
+
+    /* Individual radar ring */
+    .radar-ring {
+      position: absolute;
+      border-radius: 50%;
+      transform: translate(-50%, -50%) scale(0);
+      animation: radar-expand 1.8s cubic-bezier(0.2, 0.6, 0.4, 1) forwards;
+      pointer-events: none;
+    }
+
+    .radar-ring.ring-1 {
+      width: 120px; height: 120px;
+      border: 2px solid rgba(64, 190, 255, 0.9);
+      animation-delay: 0s;
+    }
+    .radar-ring.ring-2 {
+      width: 180px; height: 180px;
+      border: 1.5px solid rgba(64, 190, 255, 0.6);
+      animation-delay: 0.15s;
+    }
+    .radar-ring.ring-3 {
+      width: 260px; height: 260px;
+      border: 1px solid rgba(64, 190, 255, 0.35);
+      animation-delay: 0.3s;
+    }
+
+    .radar-dot {
+      position: absolute;
+      width: 8px; height: 8px;
+      background: rgba(64, 190, 255, 1);
+      border-radius: 50%;
+      transform: translate(-50%, -50%) scale(0);
+      animation: dot-pop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+      box-shadow: 0 0 12px rgba(64, 190, 255, 0.8);
+    }
+
+    /* Sweep arc */
+    .radar-sweep {
+      position: absolute;
+      width: 200px; height: 200px;
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      animation: sweep-fade 1.8s ease-out forwards;
+      background: conic-gradient(
+        from -30deg,
+        transparent 0deg,
+        rgba(64, 190, 255, 0.25) 30deg,
+        rgba(64, 190, 255, 0.05) 90deg,
+        transparent 100deg
+      );
+    }
+
+    @keyframes radar-expand {
+      0%   { transform: translate(-50%, -50%) scale(0); opacity: 1; }
+      60%  { opacity: 0.8; }
+      100% { transform: translate(-50%, -50%) scale(1); opacity: 0; }
+    }
+
+    @keyframes dot-pop {
+      0%   { transform: translate(-50%, -50%) scale(0); }
+      70%  { transform: translate(-50%, -50%) scale(1.3); }
+      100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+    }
+
+    @keyframes sweep-fade {
+      0%   { opacity: 1; transform: translate(-50%, -50%) rotate(-60deg) scale(0.2); }
+      50%  { opacity: 0.8; transform: translate(-50%, -50%) rotate(60deg) scale(1); }
+      100% { opacity: 0; transform: translate(-50%, -50%) rotate(150deg) scale(1.1); }
+    }
+
+    /* Tap hint */
+    #hint {
+      margin-top: 14px;
+      color: rgba(255,255,255,0.35);
+      font-size: 12px;
+      letter-spacing: 0.05em;
+      transition: opacity 0.5s;
+    }
+    #hint.hidden { opacity: 0; }
+  </style>
+</head>
+<body>
+
+  <h1>Interactive Map</h1>
+
+  <div id="map-container">
+    <div id="map"></div>
+    <div id="radar-layer"></div>
+  </div>
+
+  <p id="hint">Tap anywhere on the map</p>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script>
+    // Initialize map centered on Bauer Rd area (Houston, TX based on the image)
+    const map = L.map('map', {
+      center: [29.758, -95.452],
+      zoom: 15,
+      zoomControl: true,
+      attributionControl: true,
+    });
+
+    // Use a clean, light map style similar to the screenshot
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+      attribution: '&copy; <a href="https://carto.com/">CARTO</a>',
+      subdomains: 'abcd',
+      maxZoom: 19
+    }).addTo(map);
+
+    const radarLayer = document.getElementById('radar-layer');
+    const hint = document.getElementById('hint');
+    let hintDismissed = false;
+
+    // Active dots (persist on map)
+    const dots = [];
+
+    map.on('click', (e) => {
+      // Dismiss hint
+      if (!hintDismissed) {
+        hintDismissed = true;
+        hint.classList.add('hidden');
+      }
+
+      // Convert lat/lng to container pixel coords
+      const point = map.latLngToContainerPoint(e.latlng);
+      spawnRadar(point.x, point.y, e.latlng);
+    });
+
+    function spawnRadar(x, y, latlng) {
+      // Sweep
+      const sweep = document.createElement('div');
+      sweep.className = 'radar-sweep';
+      sweep.style.left = x + 'px';
+      sweep.style.top = y + 'px';
+      radarLayer.appendChild(sweep);
+
+      // Rings
+      ['ring-1', 'ring-2', 'ring-3'].forEach(cls => {
+        const ring = document.createElement('div');
+        ring.className = `radar-ring ${cls}`;
+        ring.style.left = x + 'px';
+        ring.style.top = y + 'px';
+        radarLayer.appendChild(ring);
+
+        ring.addEventListener('animationend', () => ring.remove(), { once: true });
+      });
+
+      // Center dot (stays until next tap cycle)
+      const dot = document.createElement('div');
+      dot.className = 'radar-dot';
+      dot.style.left = x + 'px';
+      dot.style.top = y + 'px';
+      radarLayer.appendChild(dot);
+
+      // Fade dot out after 3s
+      setTimeout(() => {
+        dot.style.transition = 'opacity 0.8s';
+        dot.style.opacity = '0';
+        setTimeout(() => dot.remove(), 800);
+      }, 3000);
+
+      // Remove sweep after animation
+      sweep.addEventListener('animationend', () => sweep.remove(), { once: true });
+    }
+
+    // Re-position dots on map pan/zoom (we track latlng positions)
+    // For simplicity dots are absolute positioned in container coords;
+    // re-spawn a brief pulse on moveend to reattach to geo coords.
+    // (full geo-tracked dots would need a custom Leaflet layer)
+  </script>
+</body>
+</html>
