@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Peggy Du. — Product Designer</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ── NAV ── -->
+  <div class="nav w-nav" role="navigation">
+    <div class="nav-container">
+      <a href="#" class="nav-brand">
+        <img
+          src="https://cdn.prod.website-files.com/633ee4c32df994385e825db7/6650c42c377dd41d2b41b989_Frame%201410127647.svg"
+          alt="Peggy Du."
+          class="nav-logo-img"
+          width="153"
+          height="44"
+        />
+      </a>
+      <nav class="nav-menu">
+        <a href="#work"       class="nav-link nav-link--active">Work</a>
+        <a href="play-ground.html" class="nav-link">Play Ground</a>
+        <a href="about-me.html" class="nav-link">About</a>
+      </nav>
+    </div>
+  </div>
+
+  <!-- ── HERO ── -->
+  <section class="hero-section">
+    <div class="hero-container">
+      <div class="hero-text">
+        <div class="hero-line">I'm a</div>
+        <div class="hero-line"><span class="typer" id="typer"></span><span class="cursor" id="cursor">|</span></div>
+        <div class="hero-line">Designer.</div>
+      </div>
+    </div>
+
+    <!-- scroll chevron -->
+    <div class="scroll-chevron" id="scrollChevron">
+      <svg width="24" height="14" viewBox="0 0 24 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M1 1L12 12L23 1" stroke="#333333" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+  </section>
+
+  <!-- ── WORK ── -->
+  <div class="work-row" id="work">
+    <div class="work-col-left">
+      <div class="work-label-sticky">
+        <h2 class="work-heading">Work</h2>
+        <p class="work-subtext">explore a few most recent and<br>featured projects.</p>
+      </div>
+    </div>
+
+    <div class="work-col-right">
+
+      <!-- Project 1 — Esri -->
+      <div class="project">
+        <a href="utility-networks.html" class="project-img-link">
+          <img
+            src="https://cdn.prod.website-files.com/633ee4c32df994385e825db7/69791378270feb475cec48af_Frame%202608718.png"
+            alt="Esri Asset Management"
+            class="project-img"
+          />
+        </a>
+        <div class="project-text">
+          <h3 class="project-title">
+            <span class="project-company">Esri</span>
+            <span class="project-sep"> | </span>Asset Management Made Easy 🔒
+          </h3>
+          <p class="project-desc">A B2B geospatial platform designed to manage <strong>utility network</strong> and support field data collection workflows.</p>
+        </div>
+      </div>
+
+      <!-- Project 2 — Core by Chloe Ting -->
+      <div class="project">
+        <a href="core-by-chloe-ting.html" class="project-img-link">
+          <img
+            src="https://cdn.prod.website-files.com/633ee4c32df994385e825db7/66621597a687fa7d026b6699_Frame%201410127649.png"
+            alt="Core by Chloe Ting"
+            class="project-img"
+          />
+        </a>
+        <div class="project-text">
+          <a href="core-by-chloe-ting.html" style="text-decoration:none;">
+            <h3 class="project-title">
+              <span class="project-company">Core by Chloe Ting</span>
+              <span class="project-sep"> | </span>Health &amp; Fitness App
+            </h3>
+          </a>
+          <p class="project-desc">Connecting a top fitness influencer with her global fitness community — from zero to launch, 1M+ downloads, 9K reviews.</p>
+        </div>
+      </div>
+
+      <!-- Project 3 — F-Sync -->
+      <div class="project">
+        <a href="#" class="project-img-link">
+          <img
+            src="https://cdn.prod.website-files.com/633ee4c32df994385e825db7/696596d15336fa5ce6f13525_Frame%201000008356.png"
+            alt="F-Sync"
+            class="project-img"
+          />
+        </a>
+        <div class="project-text">
+          <h3 class="project-title">
+            <span class="project-company">F-Sync</span>
+            <span class="project-sep"> | </span>Unified Peripheral Management
+          </h3>
+          <p class="project-desc">A web-based platform providing intuitive hardware control and real-time feedback on device configurations.</p>
+        </div>
+      </div>
+
+      <!-- Project 4 — Harvard -->
+      <div class="project">
+        <a href="#" class="project-img-link">
+          <img
+            src="https://cdn.prod.website-files.com/633ee4c32df994385e825db7/666230fa6f0f9cfaf324a493_2.png"
+            alt="Harvard University Library Search"
+            class="project-img"
+          />
+        </a>
+        <div class="project-text">
+          <h3 class="project-title">
+            <span class="project-company">Harvard University</span>
+            <span class="project-sep"> | </span>Library Search
+          </h3>
+          <p class="project-desc">Provide a more understandable and intuitive reference experience for the audiences.</p>
+        </div>
+      </div>
+
+      <!-- Project 5 — Aeyesafe -->
+      <div class="project project--last">
+        <a href="#" class="project-img-link">
+          <img
+            src="https://cdn.prod.website-files.com/633ee4c32df994385e825db7/666231668d31f54f579374c1_3.png"
+            alt="Aeyesafe AI Home Assistance"
+            class="project-img"
+          />
+        </a>
+        <div class="project-text">
+          <h3 class="project-title">
+            <span class="project-company">Aeyesafe</span>
+            <span class="project-sep"> | </span>AI Home Assistance
+          </h3>
+          <p class="project-desc">Senior safety monitoring system for nursing homes.</p>
+        </div>
+      </div>
+
+    </div><!-- /work-col-right -->
+  </div><!-- /work-row -->
+
+  <!-- ── FOOTER ── -->
+  <footer class="footer">
+    <div class="footer-top">
+      <div class="footer-logo-col">
+        <div class="footer-pd-logo">
+          <span class="footer-pd-square"></span><span class="footer-pd-text">PD.</span>
+        </div>
+      </div>
+
+      <div class="footer-nav-col">
+        <p class="footer-label">Main</p>
+        <a href="#work"       class="footer-link">Work</a>
+        <a href="#playground" class="footer-link">Play Ground</a>
+        <a href="about-me.html" class="footer-link">About</a>
+      </div>
+
+      <div class="footer-nav-col">
+        <p class="footer-label">Contact</p>
+        <a href="https://linkedin.com/in/peggydu" target="_blank" rel="noopener" class="footer-link footer-link--external">Linkedin <img src="https://cdn.prod.website-files.com/633ee4c32df994385e825db7/666b5033ddefcf68f0bad5ee_Vectors-Wrapper.svg" alt="" class="footer-ext-icon" /></a>
+        <a href="mailto:peggydu@umich.edu" class="footer-link footer-link--external">Email <img src="https://cdn.prod.website-files.com/633ee4c32df994385e825db7/666b5033ddefcf68f0bad5ee_Vectors-Wrapper.svg" alt="" class="footer-ext-icon" /></a>
+        <a href="#" target="_blank" rel="noopener" class="footer-link footer-link--external">Resume <img src="https://cdn.prod.website-files.com/633ee4c32df994385e825db7/666b5033ddefcf68f0bad5ee_Vectors-Wrapper.svg" alt="" class="footer-ext-icon" /></a>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p class="footer-copy">Made with love © 2026 Peggy Du. All Rights Reserved.</p>
+      <p class="footer-note">This website is best viewed on desktop.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
