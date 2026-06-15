@@ -3,7 +3,7 @@
    Matches the original: types "Product" then deletes, loops
 ───────────────────────────────────────── */
 (function () {
-  var words   = ['Product'];   // only one word on the original
+  var words   = ['Product', 'B2B SaaS', 'Mobile App', 'User Experience'];
   var typer   = document.getElementById('typer');
   var cursor  = document.getElementById('cursor');
   var wordIdx = 0;
