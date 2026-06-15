@@ -199,7 +199,7 @@ img { display: block; max-width: 100%; }
   font-size: 140px;
   font-weight: 300;
   line-height: 180px;
-  color: #000000;
+  color: #333333;
   display: block;
   min-height: 180px;
 }
@@ -210,7 +210,7 @@ img { display: block; max-width: 100%; }
   font-size: 140px;
   font-weight: 300;
   line-height: 180px;
-  color: #000000;
+  color: #333333;
   display: inline;
 }
 
