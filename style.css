@@ -244,7 +244,7 @@ img { display: block; max-width: 100%; }
 ───────────────────────────────────────── */
 .work-row {
   display: flex;
-  align-items: flex-start;
+  align-items: stretch;
   padding-left:  var(--page-margin);
   padding-right: var(--page-margin);
   padding-top: 80px;
@@ -263,12 +263,12 @@ img { display: block; max-width: 100%; }
 }
 
 .work-heading {
-  font-family: var(--font-sans);
-  font-size: 16px;
-  font-weight: 500;
+  font-family: var(--font-serif);
+  font-size: 24px;
+  font-weight: 600;
   color: var(--black);
   margin-bottom: 8px;
-  line-height: 1.4;
+  line-height: 32px;
 }
 
 .work-subtext {
